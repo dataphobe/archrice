@@ -1,45 +1,8 @@
 #!/bin/bash
-VIMRC_FILE=~/.vimrc
-NVIMRC_FILE=~/.config/nvim/init.vim
-install_plugmgr(){
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-pip3 install neovim
-pip3 install --user powerline-status
-}
 
 
 
 
-nvim_make(){
- if [ ! -f "$NVIMRC_FILE" ];
- then
-    echo "$0: File '${NVIMRC_FILE}' not found. Should I make it ?"
-    echo "y/N"
-    read -n 1 answer
-    if [ "$answer" == "y" ];then
-     mkdir -p ~/.config/nvim/ 
-     touch $NVIMRC_FILE #~/.config/nvim/init.vim
-     echo "$NVIMRC_FILE created"
-    fi
- else 
-     echo "'${NVIMRC_FILE}' already exists" 
-     rm $NVIMRC_FILE
- fi
-
- cat vim/vimrc >> $NVIMRC_FILE #~/.config/nvim/init.vim 
- find ./ -name '*.vim' -exec cat '{}' >> $NVIMRC_FILE \; #~/.config/nvim/init.vim \;
- find ./ -name '*.nvim' -exec cat '{}' >> $NVIMRC_FILE \; #"${NVIMRC_FILE}" #~/.config/nvim/init.vim \;
- if ! [ -x "$(command -v pip3)" ] || ! [ -x "$(command -v curl)" ]; then
-   echo 'make sure pip3 and curl are installed' >&2
-   exit 1
- fi
- install_plugmgr
-}
 
 i3_dot(){
     
@@ -87,49 +50,9 @@ i3_dot(){
     # cp -r ~/.local/share/fonts/* ~/.fonts/
 
 }
-bash_dot(){
-   # echo '# chip chip chip chip chip ' >> ~/.bashtmp
-   if [ $USER = "" ]; then
-       cp bash/t.bash ~/.bashtmp
-       cp bash/archey.bash ~/.archey
-   elif [ $USER = "" ]; then
-       cp bash/td.bash ~/.bashtmp
-
-   elif [ $USER = "" ]; then
-       cp bash/tw.bash ~/.bashtmp
-   else
-       echo "Hello, $name."
-   fi
-   cp bash/bash.bashrc ~/.bashrc
-   cp bash/shared.bash ~/.bash_profile
-   # cat shared.bash >> ~/.bash_profile
-   # cp art.bash ~/.welcome
-   source ~/.bashrc
-}
 
 
 
-
-bash_make(){
-unameOut="$(uname -s)"
-case "${unameOut}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    CYGWIN*)    machine=Cygwin;;
-    MINGW*)     machine=MinGw;;
-    *)          machine="UNKNOWN:${unameOut}"
-esac
-bash_dot
-if [ $machine = Linux ]; then
-    # ubuntu_make
-    echo "linux"
-elif [ $machine = Mac ]; then
-    # osxbash_make
-    echo "Mac"
-else
-    echo "operating system not found"
-fi
-}
 # TODO: add package installation 
 
 
@@ -140,8 +63,6 @@ cat ./tmux > ~/.tmux.conf
 
 
 make(){
-bash_dot
-nvim_make
 tmux_make
 i3_dot
 }
