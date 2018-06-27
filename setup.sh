@@ -39,9 +39,6 @@ nvim_make(){
    exit 1
  fi
  install_plugmgr
- # git submodule update
- # git submodule foreach git pull origin master
- # sh fonts/install.sh
 }
 
 i3_dot(){
