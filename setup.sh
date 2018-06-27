@@ -135,28 +135,17 @@ fi
 }
 # TODO: add package installation 
 
-git_make(){
-cat ./git/global.gitconfig > ~/.gitconfig
-cat ./git/global.gitignore > ~/.gitignore
-}
 
 tmux_make(){
 cat ./tmux > ~/.tmux.conf
 }
 
-ssh_setup(){
-mkdir -p ~/.ssh
-cp ./ssh/* ~/.ssh/
-ssh-add -K ~/.ssh/id_rsa
-}
 
 
 make(){
 bash_dot
 nvim_make
-git_make
 tmux_make
-ssh_setup
 i3_dot
 }
 
