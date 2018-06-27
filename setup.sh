@@ -62,7 +62,7 @@ cat ./tmux > ~/.tmux.conf
 
 
 
-make(){
+install(){
 tmux_make
 i3_dot
 }
